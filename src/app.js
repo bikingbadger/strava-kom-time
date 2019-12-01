@@ -5,6 +5,7 @@ const hbs = require("hbs");
 const debug = require("debug")("weather-server");
 
 const app = express();
+const port = process.env.PORT;
 
 const geocode = require("./utils/geocode");
 const forecast = require("./utils/forecast");
@@ -67,6 +68,6 @@ app.get("*", (req, res) => {
   res.render("404", { title: "Weather App", author: "Hilton Meyer" });
 });
 
-app.listen(3000, () => {
-  debug(`App started on 3000`);
+app.listen(port, () => {
+  debug(`App started on ${port}`);
 });
