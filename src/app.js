@@ -58,10 +58,12 @@ app.get("/weather", (req, res) => {
           forecast: forecastData,
           location,
           address,
+          latitude,
+          longitude,
         });
       });
     });
-  }  
+  }
 });
 
 app.get("*", (req, res) => {
