@@ -25,7 +25,7 @@ app.set("views", viewsPath);
 hbs.registerPartials(partialsPath);
 
 app.get("", (req, res) => {
-  res.render("index", { title: "Weather App", author: "Hilton Meyer" });
+  res.render("index", { title: "Weather Forecast", author: "Hilton Meyer" });
 });
 
 app.get("/help", (req, res) => {
