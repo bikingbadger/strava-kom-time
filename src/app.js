@@ -38,10 +38,28 @@ app.get("/about", (req, res) => {
 
 app.get("/weather", (req, res) => {
   const address = req.query.address;
-
-  if (!req.query.address) {
+  console.log(req.query);
+  if (!req.query.address && !req.query.longitude && !req.query.latitude) {
     return res.send({
-      error: "Must provide address",
+      error: "Must provide address or co-ordinates",
+    });
+  }
+
+  if (req.query.longitude && req.query.latitude) {
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
+    forecast(latitude, longitude, (error, forecastData) => {
+      if (error) {
+        return res.send({ error });
+      }
+
+      return res.send({
+        forecast: forecastData,
+        location: null,
+        address,
+        latitude,
+        longitude,
+      });
     });
   } else {
     geocode(address, (error, { latitude, longitude, location } = {}) => {
@@ -54,7 +72,7 @@ app.get("/weather", (req, res) => {
           return res.send({ error });
         }
 
-        res.send({
+        return res.send({
           forecast: forecastData,
           location,
           address,
